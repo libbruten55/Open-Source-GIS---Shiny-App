@@ -48,7 +48,7 @@ output$map <- renderLeaflet ({
     ) %>%
     addLayersControl(
       baseGroups = c("Colour"),
-      overlayGroups = c("Bridges", "Nearest distance", "Large Wood", "Heatmap", "Aspect", "Slope", "Catchers"),
+      overlayGroups = c("Bridges", "Large Wood", "Heatmap", "Aspect", "Slope", "Catchers"),
       options = layersControlOptions(collapsed = FALSE)
     )
   })
