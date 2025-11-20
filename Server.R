@@ -23,7 +23,7 @@ output$map <- renderLeaflet ({
              fillOpacity=0.8,
              weight = 2,
              radius = 50,
-             popup = ~paste("<b>OWNER:</b>", OWNER, "<br><b>BRIDGE.NAM:</b>", BRIDGE.NAM, "<br><b>LW_upstream:</b>", LW_upstream),
+             popup = ~paste("<b>OWNER:</b>", OWNER, "<br><b>BRIDGE_NAME:</b>", BRIDGE_, "<br><b>LW_Upstream:</b>", LW_pstr),
              group = "Bridges")%>%
     addCircles(data = catchers,
                color = "blue",
@@ -48,7 +48,7 @@ output$map <- renderLeaflet ({
     ) %>%
     addLayersControl(
       baseGroups = c("Colour"),
-      overlayGroups = c("Bridges", "Large Wood", "Heatmap", "Aspect", "Slope", "Catchers"),
+      overlayGroups = c("River", "Bridges", "Large Wood", "Heatmap", "Aspect", "Slope", "Catchers", "Nearest Distance"),
       options = layersControlOptions(collapsed = FALSE)
     )
   })
@@ -66,4 +66,12 @@ observe({
                      fillOpacity = 0.7,
                      popup = ~paste("<b>Type:</b>", LW_Type, "<br><b>Cluster ID:</b>", CLUSTER_ID),
                      group = "Large Wood")
+})
+
+observe({
+  leafletProxy("map")%>%
+    clearGroup("Nearest Distance")%>%
+    addPolylines(data = nearest_distance,
+                 color = "black", weight=2, opacity=0.8,
+                 group = "Nearest Distance")
 })
